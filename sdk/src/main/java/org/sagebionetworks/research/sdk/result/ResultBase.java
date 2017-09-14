@@ -15,26 +15,33 @@
  *
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package org.sagebionetworks.research.sdk.result;
 
-buildscript {
-    repositories {
-        jcenter()
+import android.support.annotation.NonNull;
+
+import java.util.Date;
+
+
+public class ResultBase implements Result {
+    @NonNull
+    private final Date startDate;
+    @NonNull
+    private final Date endDate;
+
+    public ResultBase(@NonNull Date startDate, @NonNull Date endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    @Override
+    @NonNull
+    public Date getStartDate() {
+        return startDate;
     }
-}
 
-allprojects {
-    repositories {
-        jcenter()
+    @Override
+    @NonNull
+    public Date getEndDate() {
+        return endDate;
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

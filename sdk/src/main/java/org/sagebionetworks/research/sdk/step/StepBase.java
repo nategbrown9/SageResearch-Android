@@ -15,26 +15,22 @@
  *
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package org.sagebionetworks.research.sdk.step;
 
-buildscript {
-    repositories {
-        jcenter()
+import android.support.annotation.NonNull;
+
+
+public class StepBase implements Step {
+    @NonNull
+    private final String identifier;
+
+    public StepBase(@NonNull String identifier) {
+        this.identifier = identifier;
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    @Override
+    @NonNull
+    public String getIdentifier() {
+        return identifier;
     }
-}
-
-allprojects {
-    repositories {
-        jcenter()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
