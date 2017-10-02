@@ -22,14 +22,31 @@ import android.support.annotation.Nullable;
 
 import org.sagebionetworks.research.sdk.result.Result;
 
-
+/**
+ * Describes a form input within a step. Contains information about data type and hints on how
+ * the UI should be displayed.
+ */
 public interface FormItem {
     @NonNull
     String getIdentifier();
 
+    /**
+     * a localized string that displays a short text offering a hint to the user of the
+     * data to be entered for this field.
+     *
+     * @return prompt for form item
+     */
     @Nullable
     String getPrompt();
 
+    /**
+     * A localized string that displays placeholder information for the form item.
+     * <p>
+     * You can display placeholder text in a text field or text area to help users understand how
+     * to answer the item's question.
+     *
+     * @return placeholder for text input field
+     */
     @Nullable
     String getPlaceholderText();
 

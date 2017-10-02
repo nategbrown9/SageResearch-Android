@@ -33,7 +33,7 @@ import org.sagebionetworks.research.sdk.Schema;
 
 interface Task {
     @NonNull
-    String getTaskIdentifier();
+    String getIdentifier();
 
     @Nullable
     Schema getSchema();

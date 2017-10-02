@@ -43,7 +43,6 @@ public abstract class TaskCoordinatorBase implements TaskCoordinator {
         asyncActions = new ArrayList<>();
     }
 
-    @Override
     @NonNull
     public String getIdentifier() {
         return identifier;

@@ -59,7 +59,7 @@ public class TaskBase implements Task {
 
     @Override
     @NonNull
-    public String getTaskIdentifier() {
+    public String getIdentifier() {
 
         return taskIdentifier;
     }

@@ -22,7 +22,6 @@ import android.support.annotation.NonNull;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
-
 public class Schema {
     @NonNull
     private final String identifier;
@@ -34,11 +33,17 @@ public class Schema {
         this.revision = revision;
     }
 
+    /**
+     * @return short string that uniquely identifies the associated result schema. If nil, then the `taskIdentifier` is used.
+     */
     @NonNull
     public String getIdentifier() {
         return identifier;
     }
 
+    /**
+     * @return revision number associated with the result schema. If `0`, then this is ignored.
+     */
     public int getRevision() {
         return revision;
     }
