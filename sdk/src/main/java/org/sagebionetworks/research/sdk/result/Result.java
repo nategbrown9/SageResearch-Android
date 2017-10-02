@@ -23,6 +23,10 @@ import java.util.Date;
 
 
 public interface Result {
+
+    @NonNull
+    String getIdentifier();
+
     @NonNull
     Date getStartDate();
 

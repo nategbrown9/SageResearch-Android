@@ -19,6 +19,9 @@ package org.sagebionetworks.research.sdk.step;
 
 import android.support.annotation.NonNull;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 
 public class StepBase implements Step {
     @NonNull
@@ -32,5 +35,29 @@ public class StepBase implements Step {
     @NonNull
     public String getIdentifier() {
         return identifier;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        StepBase stepBase = (StepBase) o;
+        return Objects.equal(identifier, stepBase.identifier);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(identifier);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("identifier", identifier)
+                .toString();
     }
 }

@@ -19,6 +19,9 @@ package org.sagebionetworks.research.sdk.result;
 
 import android.support.annotation.NonNull;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -36,8 +39,8 @@ public class TaskResult extends ResultBase {
     @NonNull
     private final Set<Result> asyncResults;
 
-    public TaskResult(@NonNull Date startDate, @NonNull Date endDate) {
-        super(startDate, endDate);
+    public TaskResult(@NonNull String identifier, @NonNull Date startDate, @NonNull Date endDate) {
+        super(identifier, startDate, endDate);
 
         taskRunUUID = UUID.randomUUID();
         stepResults = new ArrayList<>();
@@ -61,5 +64,36 @@ public class TaskResult extends ResultBase {
     @NonNull
     public Set<Result> getAsyncResults() {
         return asyncResults;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        TaskResult that = (TaskResult) o;
+        return Objects.equal(taskRunUUID, that.taskRunUUID) &&
+                Objects.equal(stepResults, that.stepResults) &&
+                Objects.equal(asyncResults, that.asyncResults);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(super.hashCode(), taskRunUUID, stepResults, asyncResults);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("taskRunUUID", taskRunUUID)
+                .add("stepResults", stepResults)
+                .add("asyncResults", asyncResults)
+                .toString();
     }
 }

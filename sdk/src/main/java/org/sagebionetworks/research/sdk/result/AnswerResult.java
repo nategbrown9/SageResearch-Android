@@ -20,6 +20,9 @@ package org.sagebionetworks.research.sdk.result;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,12 +34,14 @@ public class AnswerResult<T> extends ResultBase {
     @NonNull
     private final Map<String, T> metadata;
 
-    public AnswerResult(@NonNull Date startDate, @NonNull Date endDate, @NonNull T answer) {
-        this(startDate, endDate, answer, new HashMap<String, T>());
+    public AnswerResult(@NonNull String identifier, @NonNull Date startDate, @NonNull Date endDate, @NonNull T answer) {
+        this(identifier, startDate, endDate, answer, new HashMap<String, T>());
     }
 
-    public AnswerResult(@NonNull Date startDate, @NonNull Date endDate, @NonNull T answer, @NonNull Map<String, T> metadata) {
-        super(startDate, endDate);
+
+    public AnswerResult(@NonNull String identifier, @NonNull Date startDate, @NonNull Date endDate, @NonNull T answer,
+                        @NonNull Map<String, T> metadata) {
+        super(identifier, startDate, endDate);
 
         this.answer = answer;
         this.metadata = metadata;
@@ -54,20 +59,27 @@ public class AnswerResult<T> extends ResultBase {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         AnswerResult<?> that = (AnswerResult<?>) o;
-
-        if (!answer.equals(that.answer)) return false;
-        return metadata.equals(that.metadata);
-
+        return Objects.equal(answer, that.answer) &&
+                Objects.equal(metadata, that.metadata);
     }
 
     @Override
     public int hashCode() {
-        int result = answer.hashCode();
-        result = 31 * result + metadata.hashCode();
-        return result;
+        return Objects.hashCode(answer, metadata);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("answer", answer)
+                .add("metadata", metadata)
+                .toString();
     }
 }

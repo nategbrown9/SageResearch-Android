@@ -17,66 +17,122 @@
 
 package org.sagebionetworks.research.sdk.task;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import org.sagebionetworks.research.sdk.AsyncAction;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.sagebionetworks.research.sdk.Duration;
+import org.sagebionetworks.research.sdk.Schema;
 
-
-public abstract class TaskBase implements Task {
+/**
+ * Created by liujoshua on 10/2/2017.
+ */
+public class TaskBase implements Task {
     @NonNull
-    private final String identifier;
+    private final String taskIdentifier;
     @Nullable
-    private final Info info;
-    @NonNull
-    private final List<AsyncAction> asyncActions;
+    private final Schema schema;
+    @Nullable
+    private final String title;
+    @Nullable
+    private final String detail;
+    @Nullable
+    private final String copyright;
+    @Nullable
+    private final Duration estimatedDuration;
+    @DrawableRes
+    private final int icon;
 
-    public TaskBase(@NonNull String identifier, Info info) {
-        this.identifier = identifier;
-        this.info = info;
-        asyncActions = new ArrayList<>();
+    public TaskBase(@NonNull String taskIdentifier, Schema schema, String title, String detail, String copyright,
+                    Duration estimatedDuration, int icon) {
+        this.taskIdentifier = taskIdentifier;
+        this.schema = schema;
+        this.title = title;
+        this.detail = detail;
+        this.copyright = copyright;
+        this.estimatedDuration = estimatedDuration;
+        this.icon = icon;
     }
 
     @Override
     @NonNull
-    public String getIdentifier() {
-        return identifier;
+    public String getTaskIdentifier() {
+
+        return taskIdentifier;
     }
 
     @Override
     @Nullable
-    public Info getInfo() {
-        return info;
+    public Schema getSchema() {
+        return schema;
     }
 
     @Override
-    @NonNull
-    public List<AsyncAction> getAsyncActions() {
-        return asyncActions;
+    @Nullable
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    @Nullable
+    public String getDetail() {
+        return detail;
+    }
+
+    @Override
+    @Nullable
+    public String getCopyright() {
+        return copyright;
+    }
+
+    @Override
+    @Nullable
+    public Duration getEstimatedDuration() {
+        return estimatedDuration;
+    }
+
+    @Override
+    @DrawableRes
+    public int getIcon() {
+        return icon;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TaskBase task = (TaskBase) o;
-
-        if (!identifier.equals(task.identifier)) return false;
-        if (info != null ? !info.equals(task.info) : task.info != null) return false;
-        return asyncActions.equals(task.asyncActions);
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TaskBase taskBase = (TaskBase) o;
+        return icon == taskBase.icon &&
+                Objects.equal(taskIdentifier, taskBase.taskIdentifier) &&
+                Objects.equal(schema, taskBase.schema) &&
+                Objects.equal(title, taskBase.title) &&
+                Objects.equal(detail, taskBase.detail) &&
+                Objects.equal(copyright, taskBase.copyright) &&
+                Objects.equal(estimatedDuration, taskBase.estimatedDuration);
     }
 
     @Override
     public int hashCode() {
-        int result = identifier.hashCode();
-        result = 31 * result + (info != null ? info.hashCode() : 0);
-        result = 31 * result + asyncActions.hashCode();
-        return result;
+        return Objects.hashCode(taskIdentifier, schema, title, detail, copyright, estimatedDuration, icon);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("taskIdentifier", taskIdentifier)
+                .add("schema", schema)
+                .add("title", title)
+                .add("detail", detail)
+                .add("copyright", copyright)
+                .add("estimatedDuration", estimatedDuration)
+                .add("icon", icon)
+                .toString();
     }
 }
-

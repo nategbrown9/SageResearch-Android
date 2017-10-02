@@ -18,7 +18,9 @@
 package org.sagebionetworks.research.sdk;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 
 import java.util.concurrent.TimeUnit;
 
@@ -43,24 +45,28 @@ public class Duration {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Duration duration = (Duration) o;
-
-        if (Double.compare(duration.value, value) != 0) return false;
-        return unit == duration.unit;
-
+        return Double.compare(duration.value, value) == 0 &&
+                unit == duration.unit;
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(value);
-        result = (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (unit != null ? unit.hashCode() : 0);
-        return result;
+        return Objects.hashCode(value, unit);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("value", value)
+                .add("unit", unit)
+                .toString();
     }
 }

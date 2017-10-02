@@ -19,18 +19,30 @@ package org.sagebionetworks.research.sdk.result;
 
 import android.support.annotation.NonNull;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import java.util.Date;
 
 
 public class ResultBase implements Result {
     @NonNull
+    private final String identifier;
+    @NonNull
     private final Date startDate;
     @NonNull
     private final Date endDate;
 
-    public ResultBase(@NonNull Date startDate, @NonNull Date endDate) {
+    public ResultBase(@NonNull String identifier, @NonNull Date startDate, @NonNull Date endDate) {
+        this.identifier = identifier;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    @NonNull
+    @Override
+    public String getIdentifier() {
+        return identifier;
     }
 
     @Override
@@ -43,5 +55,33 @@ public class ResultBase implements Result {
     @NonNull
     public Date getEndDate() {
         return endDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ResultBase that = (ResultBase) o;
+        return Objects.equal(identifier, that.identifier) &&
+                Objects.equal(startDate, that.startDate) &&
+                Objects.equal(endDate, that.endDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(identifier, startDate, endDate);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("identifier", identifier)
+                .add("startDate", startDate)
+                .add("endDate", endDate)
+                .toString();
     }
 }

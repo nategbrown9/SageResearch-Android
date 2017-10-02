@@ -15,32 +15,49 @@
  *
  */
 
-package org.sagebionetworks.research.sdk;
+package org.sagebionetworks.research.sdk.task;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
+import org.sagebionetworks.research.sdk.AsyncAction;
 
-public class Schema {
+import java.util.ArrayList;
+import java.util.List;
+
+
+public abstract class TaskCoordinatorBase implements TaskCoordinator {
     @NonNull
     private final String identifier;
-    private final int revision;
+    @Nullable
+    private final Task task;
+    @NonNull
+    private final List<AsyncAction> asyncActions;
 
-    public Schema(@NonNull String identifier, int revision) {
+    public TaskCoordinatorBase(@NonNull String identifier, Task task) {
         this.identifier = identifier;
-
-        this.revision = revision;
+        this.task = task;
+        asyncActions = new ArrayList<>();
     }
 
+    @Override
     @NonNull
     public String getIdentifier() {
         return identifier;
     }
 
-    public int getRevision() {
-        return revision;
+    @Nullable
+    public Task getTask() {
+        return task;
+    }
+
+    @Override
+    @NonNull
+    public List<AsyncAction> getAsyncActions() {
+        return asyncActions;
     }
 
     @Override
@@ -51,21 +68,24 @@ public class Schema {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Schema schema = (Schema) o;
-        return revision == schema.revision &&
-                Objects.equal(identifier, schema.identifier);
+        TaskCoordinatorBase that = (TaskCoordinatorBase) o;
+        return Objects.equal(identifier, that.identifier) &&
+                Objects.equal(task, that.task) &&
+                Objects.equal(asyncActions, that.asyncActions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(identifier, revision);
+        return Objects.hashCode(identifier, task, asyncActions);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("identifier", identifier)
-                .add("revision", revision)
+                .add("task", task)
+                .add("asyncActions", asyncActions)
                 .toString();
     }
 }
+
