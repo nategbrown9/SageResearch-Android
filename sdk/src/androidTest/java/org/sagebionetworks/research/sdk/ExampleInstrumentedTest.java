@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("org.sagebionetworks.research.sdk", appContext.getPackageName());
+        assertEquals("org.sagebionetworks.research.sdk.test", appContext.getPackageName());
     }
 }
