@@ -20,25 +20,22 @@ package org.sagebionetworks.research.sdk.task;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import org.sagebionetworks.research.sdk.AsyncAction;
 import org.sagebionetworks.research.sdk.result.TaskResult;
 import org.sagebionetworks.research.sdk.step.Step;
 
-import java.util.List;
-
 
 public interface TaskCoordinator {
-    /**
-     * @return the task
-     */
-    @Nullable
-    Task getTask();
-
-    /**
-     * @return async actions associated with the task
-     */
-    @NonNull
-    List<AsyncAction> getAsyncActions();
+//    /**
+//     * @return the task
+//     */
+//    @Nullable
+//    Task getTask();
+//
+//    /**
+//     * @return async actions associated with the task
+//     */
+//    @NonNull
+//    List<AsyncAction> getAsyncActions();
 
     /**
      * Returns the step associated with a given identifier.
@@ -79,9 +76,5 @@ public interface TaskCoordinator {
     @NonNull
     Task.Progress getProgress(@NonNull Step step, @Nullable TaskResult taskResult);
 
-    /**
-     * Validate the task to check for any model configuration that should throw an error.
-     */
-    void validate();
 
 }

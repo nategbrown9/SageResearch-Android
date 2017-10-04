@@ -38,8 +38,8 @@ public interface Task {
     @NonNull
     String getIdentifier();
 
-    @NonNull
-    Optional<Schema> getSchema();
+    @Nullable
+    Schema getSchema();
 
     @StringRes
     int getTitle();

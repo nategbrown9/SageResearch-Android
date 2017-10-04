@@ -21,6 +21,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 import android.support.annotation.StringRes;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import static org.sagebionetworks.research.sdk.form.InputField.DataType.BOOLEAN;
 import static org.sagebionetworks.research.sdk.form.InputField.DataType.DATE;
 import static org.sagebionetworks.research.sdk.form.InputField.DataType.DATE_COMPONENTS;
@@ -63,6 +66,7 @@ public interface InputField {
     @InputField.UIHint
     String getFormUIHint();
 
+    @Retention(RetentionPolicy.SOURCE)
     @StringDef({BOOLEAN, DATE, DATE_COMPONENTS})
     @interface DataType {
         String BOOLEAN = "boolean";
@@ -71,6 +75,7 @@ public interface InputField {
         // TODO: populate remaining types
     }
 
+    @Retention(RetentionPolicy.SOURCE)
     @StringDef({CHECKBOX, COMBOBOX})
     @interface UIHint {
         String CHECKBOX = "checkbox";

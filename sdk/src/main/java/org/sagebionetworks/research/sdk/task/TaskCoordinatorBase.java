@@ -23,24 +23,20 @@ import android.support.annotation.Nullable;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
-import org.sagebionetworks.research.sdk.AsyncAction;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.sagebionetworks.research.sdk.result.TaskResult;
+import org.sagebionetworks.research.sdk.step.Step;
 
 
-public abstract class TaskCoordinatorBase implements TaskCoordinator {
+public  class TaskCoordinatorBase implements TaskCoordinator {
     @NonNull
     private final String identifier;
     @Nullable
     private final Task task;
-    @NonNull
-    private final List<AsyncAction> asyncActions;
+
 
     public TaskCoordinatorBase(@NonNull String identifier, Task task) {
         this.identifier = identifier;
         this.task = task;
-        asyncActions = new ArrayList<>();
     }
 
     @NonNull
@@ -54,12 +50,6 @@ public abstract class TaskCoordinatorBase implements TaskCoordinator {
     }
 
     @Override
-    @NonNull
-    public List<AsyncAction> getAsyncActions() {
-        return asyncActions;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -69,13 +59,12 @@ public abstract class TaskCoordinatorBase implements TaskCoordinator {
         }
         TaskCoordinatorBase that = (TaskCoordinatorBase) o;
         return Objects.equal(identifier, that.identifier) &&
-                Objects.equal(task, that.task) &&
-                Objects.equal(asyncActions, that.asyncActions);
+                Objects.equal(task, that.task);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(identifier, task, asyncActions);
+        return Objects.hashCode(identifier, task);
     }
 
     @Override
@@ -83,8 +72,31 @@ public abstract class TaskCoordinatorBase implements TaskCoordinator {
         return MoreObjects.toStringHelper(this)
                 .add("identifier", identifier)
                 .add("task", task)
-                .add("asyncActions", asyncActions)
                 .toString();
+    }
+
+    @Nullable
+    @Override
+    public Step getStep(@NonNull String identifier) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Step getStepBefore(@NonNull Step step, @Nullable TaskResult taskResult) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Step getStepAfter(@NonNull Step step, @Nullable TaskResult taskResult) {
+        return null;
+    }
+
+    @NonNull
+    @Override
+    public Task.Progress getProgress(@NonNull Step step, @Nullable TaskResult taskResult) {
+        return null;
     }
 }
 

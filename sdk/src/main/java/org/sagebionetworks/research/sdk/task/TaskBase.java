@@ -36,18 +36,18 @@ public class TaskBase implements Task {
     @Nullable
     private final Schema schema;
     @Nullable
-    private final String title;
+    private final int title;
     @Nullable
-    private final String detail;
+    private final int detail;
     @Nullable
-    private final String copyright;
+    private final int copyright;
     @Nullable
     private final Duration estimatedDuration;
     @DrawableRes
     private final int icon;
 
-    public TaskBase(@NonNull String taskIdentifier, Schema schema, String title, String detail, String copyright,
-                    Duration estimatedDuration, int icon) {
+    public TaskBase(@NonNull String taskIdentifier, Schema schema, int title, int detail,
+                    int copyright, Duration estimatedDuration, int icon) {
         this.taskIdentifier = taskIdentifier;
         this.schema = schema;
         this.title = title;
@@ -71,21 +71,18 @@ public class TaskBase implements Task {
     }
 
     @Override
-    @Nullable
-    public String getTitle() {
-        return title;
+    public int getTitle() {
+        return 0;
     }
 
     @Override
-    @Nullable
-    public String getDetail() {
-        return detail;
+    public int getDetail() {
+        return 0;
     }
 
     @Override
-    @Nullable
-    public String getCopyright() {
-        return copyright;
+    public int getCopyright() {
+        return 0;
     }
 
     @Override
@@ -120,7 +117,8 @@ public class TaskBase implements Task {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(taskIdentifier, schema, title, detail, copyright, estimatedDuration, icon);
+        return Objects.hashCode(taskIdentifier, schema, title, detail, copyright,
+                estimatedDuration, icon);
     }
 
     @Override

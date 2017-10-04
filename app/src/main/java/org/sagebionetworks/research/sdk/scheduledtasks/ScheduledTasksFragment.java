@@ -21,13 +21,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.support.v7.widget.RecyclerView;
-
 import android.view.ViewGroup;
 
-import org.sagebionetworks.research.sdk.R;
+import org.sagebionetworks.research.app.R;
+
 
 /**
  * Created by liujoshua on 10/2/2017.
@@ -42,6 +42,7 @@ public class ScheduledTasksFragment extends Fragment {
             savedInstanceState) {
         return inflater.inflate(R.layout.scheduled_tasks_fragment, container, false);
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -58,4 +59,3 @@ public class ScheduledTasksFragment extends Fragment {
     }
 
 }
-
