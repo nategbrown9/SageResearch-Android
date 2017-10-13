@@ -11,3 +11,10 @@ before_install:
  - chmod +x ./gradlew
 script:
     - ./gradlew clean build
+
+deploy:
+    provider: script
+    script: ./gradlew bintrayUpload
+    on:
+      all_branches: true
+#      branch: master
