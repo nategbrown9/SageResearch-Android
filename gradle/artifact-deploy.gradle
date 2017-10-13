@@ -30,7 +30,7 @@ if (project.plugins.hasPlugin('com.android.library')) {
 
         pkg {
             userOrg = 'sage-bionetworks'
-            repo = 'bridge-maven-release'
+            repo = 'researchsuite-release'
             name = project.name
             licenses = ['Apache-2.0']
             vcsUrl = 'https://github.com/Sage-Bionetworks/ResearchSuite-Android.git'
