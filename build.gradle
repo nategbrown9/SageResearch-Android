@@ -23,7 +23,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -32,11 +32,47 @@ buildscript {
 }
 
 allprojects {
+    version = '0.0.1'
+    group = 'org.sagebionetworks.bridge'
+
     repositories {
         jcenter()
         mavenLocal()
         maven { url 'https://maven.google.com' }
     }
+}
+
+subprojects {
+    afterEvaluate { project ->
+        task sourcesJar(type: Jar) {
+            from android.sourceSets.main.java.srcDirs
+            classifier = 'sources'
+        }
+
+        task javadoc(type: Javadoc) {
+            source = android.sourceSets.main.java.srcDirs
+            classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+            classpath += fileTree(dir: "$buildDir/intermediates/exploded-aar/", include: "**/classes.jar")
+            classpath += configurations.compile
+            // Exclude generated files
+            exclude '**/BuildConfig.java'
+            exclude '**/R.java'
+        }
+
+        task javadocJar(type: Jar, dependsOn: javadoc) {
+            classifier = 'javadoc'
+            from javadoc.destinationDir
+        }
+        artifacts {
+            archives javadocJar
+            archives sourcesJar
+        }
+
+        task findConventions << {
+            println project.getConvention()
+        }
+    }
+
 }
 
 task clean(type: Delete) {
