@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~    Copyright 2017 Sage Bionetworks
   ~
@@ -16,6 +16,8 @@
   ~
   -->
 
-<resources>
-    <string name="rsi_app_name"/>
-</resources>
+<lint>
+    <issue id="InvalidPackage">
+        <ignore path="**/logback-android-core-*.jar"/>
+    </issue>
+</lint>
