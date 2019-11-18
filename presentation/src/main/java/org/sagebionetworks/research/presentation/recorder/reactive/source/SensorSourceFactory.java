@@ -74,6 +74,8 @@ public class SensorSourceFactory {
 
         public final BackpressureStrategy backpressureStrategy;
 
+        private static final int SENSOR_DELAY_DEFAULT = 10000; //10,000 microseconds -> 100hz
+
         private SensorConfig(final int sensorType, final int samplingPeriodInUs,
                 final BackpressureStrategy backpressureStrategy) {
             this.sensorType = sensorType;
@@ -90,7 +92,7 @@ public class SensorSourceFactory {
 
             public SensorConfigBuilder(int sensorType) {
                 this.sensorType = sensorType;
-                this.samplingPeriodInUs = SENSOR_DELAY_NORMAL;
+                this.samplingPeriodInUs = SENSOR_DELAY_DEFAULT;
             }
 
             public SensorConfig build() {
